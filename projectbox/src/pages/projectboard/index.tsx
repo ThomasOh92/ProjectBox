@@ -45,9 +45,11 @@ const ProjectBoard: React.FC = () => {
     setShowModal(false);
   };
 
-
-  const handleAddCloudLink = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectProvider = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProvider(event.target.value);
+  }
+
+  const handleAddCloudLink = () => {
     if (modalInput) {
       setCloudLinks((prevLinks) => [...prevLinks, { provider: selectedProvider, link: modalInput }]);
     }
@@ -66,7 +68,7 @@ const ProjectBoard: React.FC = () => {
         <button onClick={handleAddLink} className="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Add Link
         </button>
-      <select value={selectedProvider} onChange={handleAddCloudLink}>
+      <select value={selectedProvider} onChange={handleSelectProvider}>
         <option value="">Select a cloud storage provider</option>
         <option value="DropBox">DropBox</option>
         <option value="Google Drive">Google Drive</option>
