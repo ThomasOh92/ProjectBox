@@ -1,6 +1,9 @@
 // pages/projectBoard.tsx
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css'
+import { Responsive, WidthProvider } from 'react-grid-layout';
+
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const ProjectBoard: React.FC = () => {
   const [notes, setNotes] = useState<string[]>([]);
@@ -14,6 +17,9 @@ const ProjectBoard: React.FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [modalInput, setModalInput] = useState('');
+
+  //layout for the grid items
+  const [layout, setLayout] = useState([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNoteInput(e.target.value);
@@ -108,8 +114,14 @@ const ProjectBoard: React.FC = () => {
           </div>
         </div>
       )}
+      <ResponsiveGridLayout
+        className="layout"
+        layouts={layout}
+        onLayoutChange={setLayout}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+        rowHeight={30}
+      >
 
-      <div className="grid grid-cols-3 gap-4">
         {notes.map((note, index) => (
           <div key={index} className='"p-4 border rounded shadow-md bg-white'>
             <h2>Note {index + 1}</h2>
@@ -128,7 +140,7 @@ const ProjectBoard: React.FC = () => {
             <a href={cloudLink.link} target="_blank" rel="noreferrer">{cloudLink.link}</a>
           </div>
         ))}
-      </div>
+      </ResponsiveGridLayout>
   </div>
   );
 };
